@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DataModelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Roles__UserId__267ABA7A" FromRole="Roles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Roles" Relationship="Self.FK__Roles__UserId__267ABA7A" FromRole="Users" ToRole="Roles" />
+  </EntityType>
+  <Association Name="FK__Roles__UserId__267ABA7A">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Roles" Type="Self.Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Roles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DataModelEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK__Roles__UserId__267ABA7A" Association="Self.FK__Roles__UserId__267ABA7A">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Roles" EntitySet="Roles" />
+    </AssociationSet>
+    <EntitySet Name="Appointments" EntityType="DataModelModel.Appointment" />
+    <EntitySet Name="Departments" EntityType="DataModelModel.Department" />
+    <EntitySet Name="Doctors" EntityType="DataModelModel.Doctor" />
+    <EntitySet Name="Patients" EntityType="DataModelModel.Patient" />
+    <AssociationSet Name="FK__Appointme__Depar__412EB0B6" Association="DataModelModel.FK__Appointme__Depar__412EB0B6">
+      <End Role="Department" EntitySet="Departments" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__Docto__403A8C7D" Association="DataModelModel.FK__Appointme__Docto__403A8C7D">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Doctors__Departm__3B75D760" Association="DataModelModel.FK__Doctors__Departm__3B75D760">
+      <End Role="Department" EntitySet="Departments" />
+      <End Role="Doctor" EntitySet="Doctors" />
+    </AssociationSet>
+    <EntitySet Name="Days" EntityType="DataModelModel.Day" />
+    <AssociationSet Name="FK__Appointmen__Days__71D1E811" Association="DataModelModel.FK__Appointmen__Days__71D1E811">
+      <End Role="Day" EntitySet="Days" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Doctors__Availab__72C60C4A" Association="DataModelModel.FK__Doctors__Availab__72C60C4A">
+      <End Role="Day" EntitySet="Days" />
+      <End Role="Doctor" EntitySet="Doctors" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Appointment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PatientName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Department" Type="Int32" />
+    <Property Name="DoctorName" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Department1" Relationship="DataModelModel.FK__Appointme__Depar__412EB0B6" FromRole="Appointment" ToRole="Department" />
+    <NavigationProperty Name="Doctor" Relationship="DataModelModel.FK__Appointme__Docto__403A8C7D" FromRole="Appointment" ToRole="Doctor" />
+    <Property Name="Days" Type="Int32" />
+    <NavigationProperty Name="Day1" Relationship="DataModelModel.FK__Appointmen__Days__71D1E811" FromRole="Appointment" ToRole="Day" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Appointments" Relationship="DataModelModel.FK__Appointme__Depar__412EB0B6" FromRole="Department" ToRole="Appointment" />
+    <NavigationProperty Name="Doctors" Relationship="DataModelModel.FK__Doctors__Departm__3B75D760" FromRole="Department" ToRole="Doctor" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Department" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Appointments" Relationship="DataModelModel.FK__Appointme__Docto__403A8C7D" FromRole="Doctor" ToRole="Appointment" />
+    <NavigationProperty Name="Department1" Relationship="DataModelModel.FK__Doctors__Departm__3B75D760" FromRole="Doctor" ToRole="Department" />
+    <Property Name="AvailableDays" Type="Int32" />
+    <NavigationProperty Name="Day" Relationship="DataModelModel.FK__Doctors__Availab__72C60C4A" FromRole="Doctor" ToRole="Day" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK__Appointme__Depar__412EB0B6">
+    <End Type="DataModelModel.Department" Role="Department" Multiplicity="0..1" />
+    <End Type="DataModelModel.Appointment" Role="Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="Department" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__Docto__403A8C7D">
+    <End Type="DataModelModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+    <End Type="DataModelModel.Appointment" Role="Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="DoctorName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Doctors__Departm__3B75D760">
+    <End Type="DataModelModel.Department" Role="Department" Multiplicity="0..1" />
+    <End Type="DataModelModel.Doctor" Role="Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="Department" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Day">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Day1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Appointments" Relationship="DataModelModel.FK__Appointmen__Days__71D1E811" FromRole="Day" ToRole="Appointment" />
+    <NavigationProperty Name="Doctors" Relationship="DataModelModel.FK__Doctors__Availab__72C60C4A" FromRole="Day" ToRole="Doctor" />
+  </EntityType>
+  <Association Name="FK__Appointmen__Days__71D1E811">
+    <End Type="DataModelModel.Day" Role="Day" Multiplicity="0..1" />
+    <End Type="DataModelModel.Appointment" Role="Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Day">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="Days" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Doctors__Availab__72C60C4A">
+    <End Type="DataModelModel.Day" Role="Day" Multiplicity="0..1" />
+    <End Type="DataModelModel.Doctor" Role="Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Day">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="AvailableDates" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

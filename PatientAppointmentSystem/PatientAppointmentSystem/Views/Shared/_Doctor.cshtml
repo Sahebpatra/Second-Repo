@@ -1,0 +1,9 @@
+﻿
+<option value="">-- Select Doctor --</option>
+@if (ViewBag.DocOpt != null)
+{
+    foreach (var item in ViewBag.DocOpt)
+    {
+<option value="@item.Value">@item.Text</option>
+    }
+}

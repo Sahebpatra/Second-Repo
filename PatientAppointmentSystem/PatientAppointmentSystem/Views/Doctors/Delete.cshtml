@@ -1,0 +1,76 @@
+﻿@model PatientAppointmentSystem.Models.Doctor
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+
+<h3 class="text-danger text-center ">Are you sure you want to delete this?</h3>
+<div class="text-center ">
+
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            <td>
+                <b>
+                    @Html.DisplayNameFor(model => model.DoctorName)
+                </b>
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.DoctorName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>
+                    @Html.DisplayNameFor(model => model.Department.Name)
+                </b>
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Department.Name)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>
+                    @Html.DisplayNameFor(model => model.Day.Day1)
+                </b>
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Day.Day1)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>
+                    @Html.DisplayNameFor(model => model.Address)
+                </b>
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Address)
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>
+                    @Html.DisplayNameFor(model => model.MobileNo)
+                </b>
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.MobileNo)
+
+            </td>
+        </tr>
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions ">
+            <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
+            @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
+        </div>
+    }
+</div>

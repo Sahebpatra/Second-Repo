@@ -1,0 +1,86 @@
+﻿@model IEnumerable<PatientAppointmentSystem.Models.Appointment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center text-primary">Appointments</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
+</p>
+<table class="table table-bordered table-striped">
+    <tr>
+        <td>
+            <b>
+                @Html.DisplayNameFor(model => model.PatientName)
+            </b>
+        </td> 
+        <td>
+            <b>
+                @Html.DisplayNameFor(model => model.UserName)
+            </b>
+        </td>
+        <td>
+            <b>
+                @Html.DisplayNameFor(model => model.Department.Name)
+            </b>
+        </td>
+        <td>
+            <b>
+                @Html.DisplayNameFor(model => model.Doctor.DoctorName)
+            </b>
+        </td>
+        <td>
+            <b>
+                @Html.DisplayNameFor(model => model.AvailableDay.AvdId)
+            </b>
+        </td>
+        <td>
+            <b>
+                @Html.DisplayNameFor(model => model.Address)
+            </b>
+        </td>
+        <td>
+            <b>
+                @Html.DisplayNameFor(model => model.MobileNo)
+            </b>
+        </td>
+
+
+        <td><b>Action</b></td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.PatientName)
+    </td> 
+    <td>
+        @Html.DisplayFor(modelItem => item.UserName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Department.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Doctor.DoctorName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AvailableDay.AvdId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Address)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MobileNo)
+    </td>
+
+
+    <td>
+        @Html.ActionLink("Appointment Done", "Delete", new { id = item.DocId }, htmlAttributes: new { @class = "btn btn-danger btn-xs" })
+    </td>
+</tr>
+    }
+
+</table>

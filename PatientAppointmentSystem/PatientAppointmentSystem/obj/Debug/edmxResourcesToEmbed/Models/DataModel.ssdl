@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DataModelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Appointment">
+    <Key>
+      <PropertyRef Name="ApId" />
+    </Key>
+    <Property Name="ApId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="PatientName" Type="varchar" MaxLength="50" />
+    <Property Name="DeptId" Type="int" />
+    <Property Name="DocId" Type="int" />
+    <Property Name="AvdId" Type="int" />
+    <Property Name="Address" Type="varchar(max)" />
+    <Property Name="MobileNo" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="AvailableDay">
+    <Key>
+      <PropertyRef Name="AvdId" />
+    </Key>
+    <Property Name="AvdId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DayId" Type="int" />
+    <Property Name="DocId" Type="int" />
+  </EntityType>
+  <EntityType Name="Days">
+    <Key>
+      <PropertyRef Name="DayId" />
+    </Key>
+    <Property Name="DayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Day" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Departments">
+    <Key>
+      <PropertyRef Name="DeptId" />
+    </Key>
+    <Property Name="DeptId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="DocId" Type="int" />
+  </EntityType>
+  <EntityType Name="Doctors">
+    <Key>
+      <PropertyRef Name="DocId" />
+    </Key>
+    <Property Name="DocId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DoctorName" Type="varchar" MaxLength="50" />
+    <Property Name="DeptId" Type="int" />
+    <Property Name="DayId" Type="int" />
+    <Property Name="Address" Type="varchar(max)" />
+    <Property Name="MobileNo" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="Role" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserName" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK__Appointme__AvdId__0A688BB1">
+    <End Role="AvailableDay" Type="Self.AvailableDay" Multiplicity="0..1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AvailableDay">
+        <PropertyRef Name="AvdId" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="AvdId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__DeptI__09746778">
+    <End Role="Departments" Type="Self.Departments" Multiplicity="0..1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departments">
+        <PropertyRef Name="DeptId" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="DeptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__DocId__0880433F">
+    <End Role="Doctors" Type="Self.Doctors" Multiplicity="0..1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctors">
+        <PropertyRef Name="DocId" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="DocId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Appointme__UserN__0B5CAFEA">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="UserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Available__DayId__625A9A57">
+    <End Role="Days" Type="Self.Days" Multiplicity="0..1" />
+    <End Role="AvailableDay" Type="Self.AvailableDay" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Days">
+        <PropertyRef Name="DayId" />
+      </Principal>
+      <Dependent Role="AvailableDay">
+        <PropertyRef Name="DayId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Available__DocId__634EBE90">
+    <End Role="Doctors" Type="Self.Doctors" Multiplicity="0..1" />
+    <End Role="AvailableDay" Type="Self.AvailableDay" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctors">
+        <PropertyRef Name="DocId" />
+      </Principal>
+      <Dependent Role="AvailableDay">
+        <PropertyRef Name="DocId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Doctors__Availab__03F0984C">
+    <End Role="Days" Type="Self.Days" Multiplicity="0..1" />
+    <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Days">
+        <PropertyRef Name="DayId" />
+      </Principal>
+      <Dependent Role="Doctors">
+        <PropertyRef Name="DayId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Doctors__Departm__02FC7413">
+    <End Role="Departments" Type="Self.Departments" Multiplicity="0..1" />
+    <End Role="Doctors" Type="Self.Doctors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departments">
+        <PropertyRef Name="DeptId" />
+      </Principal>
+      <Dependent Role="Doctors">
+        <PropertyRef Name="DeptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Roles__UserName__7755B73D">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="Roles">
+        <PropertyRef Name="UserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DataModelModelStoreContainer">
+    <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AvailableDay" EntityType="Self.AvailableDay" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Days" EntityType="Self.Days" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Doctors" EntityType="Self.Doctors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Appointme__AvdId__0A688BB1" Association="Self.FK__Appointme__AvdId__0A688BB1">
+      <End Role="AvailableDay" EntitySet="AvailableDay" />
+      <End Role="Appointment" EntitySet="Appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__DeptI__09746778" Association="Self.FK__Appointme__DeptI__09746778">
+      <End Role="Departments" EntitySet="Departments" />
+      <End Role="Appointment" EntitySet="Appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__DocId__0880433F" Association="Self.FK__Appointme__DocId__0880433F">
+      <End Role="Doctors" EntitySet="Doctors" />
+      <End Role="Appointment" EntitySet="Appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Appointme__UserN__0B5CAFEA" Association="Self.FK__Appointme__UserN__0B5CAFEA">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Appointment" EntitySet="Appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Available__DayId__625A9A57" Association="Self.FK__Available__DayId__625A9A57">
+      <End Role="Days" EntitySet="Days" />
+      <End Role="AvailableDay" EntitySet="AvailableDay" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Available__DocId__634EBE90" Association="Self.FK__Available__DocId__634EBE90">
+      <End Role="Doctors" EntitySet="Doctors" />
+      <End Role="AvailableDay" EntitySet="AvailableDay" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Doctors__Availab__03F0984C" Association="Self.FK__Doctors__Availab__03F0984C">
+      <End Role="Days" EntitySet="Days" />
+      <End Role="Doctors" EntitySet="Doctors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Doctors__Departm__02FC7413" Association="Self.FK__Doctors__Departm__02FC7413">
+      <End Role="Departments" EntitySet="Departments" />
+      <End Role="Doctors" EntitySet="Doctors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Roles__UserName__7755B73D" Association="Self.FK__Roles__UserName__7755B73D">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Roles" EntitySet="Roles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

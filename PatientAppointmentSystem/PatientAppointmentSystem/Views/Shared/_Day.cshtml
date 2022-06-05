@@ -1,0 +1,9 @@
+﻿
+<option value="">-- Select Day --</option>
+@if (ViewBag.DayOpt != null)
+{
+    foreach (var item in ViewBag.DayOpt)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}

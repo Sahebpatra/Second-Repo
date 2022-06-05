@@ -1,0 +1,96 @@
+﻿@model PatientAppointmentSystem.Models.Appointment
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2 class="text-center text-primary">Appointment Done</h2>
+
+<h3 class="text-center text-danger">Are you sure Patient Appointment is Done?</h3>
+<div>
+
+    <hr />
+    <div class="text-center">
+        <table class="table table-bordered table-striped text-center">
+            <tr>
+                <td>
+                    <b>
+                        @Html.DisplayNameFor(model => model.PatientName)
+
+                    </b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PatientName)
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>
+                        @Html.DisplayNameFor(model => model.Department.Name)
+                    </b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Department.Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>
+                        @Html.DisplayNameFor(model => model.Doctor.DoctorName)
+
+                    </b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Doctor.DoctorName)
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>
+                        @Html.DisplayNameFor(model => model.AvailableDay.AvdId)
+
+                    </b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.AvailableDay.AvdId)
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Address)
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>
+                        @Html.DisplayNameFor(model => model.MobileNo)
+                    </b>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.MobileNo)
+
+                </td>
+            </tr>
+        </table>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Done" class="btn btn-danger btn-sm" />
+                @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
+
+            </div>
+        }
+    </div>
+</div>

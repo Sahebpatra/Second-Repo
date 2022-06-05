@@ -1,0 +1,80 @@
+﻿@model IEnumerable<PatientAppointmentSystem.Models.Doctor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-primary text-center">Doctors List</h2>
+<hr />
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Add New Doctor", "Create", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
+    </p>
+}
+
+<table class="table table-bordered table-striped ">
+    <tr>
+        <td>
+            <b>
+                @Html.DisplayNameFor(model => model.DoctorName)
+            </b>
+        </td>
+        <td>
+            <b>
+                @Html.DisplayNameFor(model => model.Department.Name)
+        </td>
+        <td>
+            <b>
+                @Html.DisplayNameFor(model => model.Day.Day1)
+            </b>
+        </td>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <td>
+                <b>
+                    @Html.DisplayNameFor(model => model.Address)
+                </b>
+            </td>
+            <td>
+                <b>
+                    @Html.DisplayNameFor(model => model.MobileNo)
+                </b>
+            </td>
+
+            <td><b>Actions </b></td>
+        }
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Day.Day1)
+            </td>
+
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNo)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.DocId }, htmlAttributes: new { @class = "btn btn-primary btn-xs" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.DocId }, htmlAttributes: new { @class = "btn btn-danger btn-xs" })
+                </td>
+            }
+        </tr>
+    }
+
+</table>
