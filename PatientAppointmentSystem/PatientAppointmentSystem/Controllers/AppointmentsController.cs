@@ -20,6 +20,7 @@ namespace PatientAppointmentSystem.Controllers
             var appointments = db.Appointments.Include(a => a.AvailableDay).Include(a => a.Department).Include(a => a.Doctor);
             return View(appointments.ToList());
         }  
+
         public ActionResult MyAppointment()
         {
             var n =Session["UserName"].ToString();
